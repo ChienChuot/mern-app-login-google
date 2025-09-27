@@ -1,0 +1,88 @@
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 1rem;
+}
+
+header,
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+nav a {
+  margin: 0 0.5rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  nav a {
+    display: block;
+    margin: 0.5rem 0;
+  }
+}
+
+.auth-page {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-page h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.auth-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-page input {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.auth-page button {
+  padding: 0.75rem;
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.auth-page p button {
+  background: none;
+  border: none;
+  color: blue;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.home-page,
+.introduce-page,
+.about-page {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.home-page h2,
+.introduce-page,
+.about-page h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
