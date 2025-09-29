@@ -14,7 +14,8 @@ function Header() {
         <Link to="/about">About</Link> |
         {user ? (
           <>
-            <span>👋 {user}</span>
+            <span>👋 {user.name || user.username}</span>
+            <Link to="/profile">Profile</Link> |
             <button
               onClick={() => {
                 localStorage.removeItem("username");

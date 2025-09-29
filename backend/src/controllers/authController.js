@@ -18,6 +18,7 @@ export const register = async (req, res) => {
   }
 };
 
+
 export const login = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -30,8 +31,42 @@ export const login = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
-    res.json({ message: "Login successful", token,  username: user.username, });
+    res.json({ message: "Login successful", token, username: user.username });
   } catch (err) {
     res.status(500).json({ message: "Server error during login" });
+  }
+};
+
+// Cập nhật thông tin cá nhân
+export const updateProfile = async (req, res) => {
+  const userId = req.user.id;
+  const { email, name, avatar } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { email, name, avatar },
+      { new: true }
+    );
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json({ message: "Profile updated", user });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating profile" });
+  }
+};
+
+// Đổi mật khẩu
+export const changePassword = async (req, res) => {
+  const userId = req.user.id;
+  const { oldPassword, newPassword } = req.body;
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+    const match = await bcrypt.compare(oldPassword, user.password);
+    if (!match) return res.status(401).json({ message: "Old password incorrect" });
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    res.json({ message: "Password changed successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error changing password" });
   }
 };
