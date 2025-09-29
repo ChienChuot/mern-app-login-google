@@ -37,6 +37,8 @@ function Auth() {
     }
   };
 
+  // ...existing code...
+
   const handleGoogleLogin = (credentialResponse) => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
@@ -89,6 +91,7 @@ function Auth() {
           onSuccess={handleGoogleLogin}
           onError={() => setMessage("❌ Google Login thất bại")}
         />
+  {/* ...existing code... */}
       </div>
 
       {message && <p style={{ marginTop: "1rem", color: "green" }}>{message}</p>}
