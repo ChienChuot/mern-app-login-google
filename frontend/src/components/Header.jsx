@@ -1,9 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../components/UserContext";
 
 function Header() {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("username");
+    setUser("");
+    navigate("/"); // chuyển về trang chủ sau khi logout
+  };
 
   return (
     <header>
@@ -16,14 +23,7 @@ function Header() {
           <>
             <span>👋 {user.name || user.username}</span>
             <Link to="/profile">Profile</Link> |
-            <button
-              onClick={() => {
-                localStorage.removeItem("username");
-                setUser("");
-              }}
-            >
-              Logout
-            </button>
+            <button onClick={handleLogout}>Logout</button>
           </>
         ) : (
           <Link to="/auth">Sign in</Link>

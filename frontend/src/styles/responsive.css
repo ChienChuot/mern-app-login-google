@@ -86,3 +86,88 @@ nav a {
   text-align: center;
   margin-bottom: 1rem;
 }
+.profile-page {
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-page h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-page img {
+  display: block;
+  margin: 0 auto 1rem;
+  border-radius: 50%;
+}
+
+.profile-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-page input {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.profile-page button {
+  padding: 0.75rem;
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-page a {
+  display: block;
+  margin-top: 1rem;
+  text-align: center;
+  color: blue;
+  text-decoration: underline;
+}
+
+.change-password-page {
+  max-width: 400px;
+  margin: auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.change-password-page h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.change-password-page form {
+  display: flex;
+  flex-direction: column;
+}
+
+.change-password-page input {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.change-password-page button {
+  padding: 0.75rem;
+  background: #222;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.change-password-page p {
+  text-align: center;
+  margin-top: 1rem;
+  color: green;
+}

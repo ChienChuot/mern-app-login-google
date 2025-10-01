@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "@greatsumini/react-facebook-login": "^3.4.0",
-    "mongoose": "^8.18.2",
-    "nodemon": "^3.1.10",
-    "react-facebook-login": "^4.1.1"
-  }
-}
