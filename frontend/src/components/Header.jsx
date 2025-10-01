@@ -17,8 +17,9 @@ function Header() {
       <h1>MERN APP</h1>
       <nav>
         <Link to="/">Home</Link> | 
-        <Link to="/introduce">Introduce</Link> |
-        <Link to="/about">About</Link> |
+  <Link to="/introduce">Introduce</Link> |
+  <Link to="/about">About</Link> |
+  <Link to="/translate">Dịch Nhật-Việt</Link> |
         {user ? (
           <>
             <span>👋 {user.name || user.username}</span>

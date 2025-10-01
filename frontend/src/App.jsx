@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Introduce from "./pages/Introduce";
 import Profile from "./pages/Profile";
 import ChangePassword from "./pages/ChangePassword";
+import Translate from "./pages/Translate";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/auth" element={<Auth />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/translate" element={<Translate />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
