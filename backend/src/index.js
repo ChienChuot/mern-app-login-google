@@ -5,35 +5,33 @@ import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import translateRoutes from "./routes/translate.js";
 
+// Load environment variables
 dotenv.config();
+
+// Create Express app
 const app = express();
-
-
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-
-
 // Routes
 app.use("/api", authRoutes);
 app.use("/api", translateRoutes);
 
-app.get('/', (req, res) => {
-  res.send('✅ Backend is running');
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running");
 });
 
-
-
 // MongoDB connection
-mongoose
-  .connect(process.env.DB_URI)
-  .then(() => {
-    console.log("✅ Connected to MongoDB");
-  })
+  mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB Atlas"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-   app.listen(process.env.PORT, () => {
-      console.log(`🚀 Server running on port ${process.env.PORT}`);
-    });
+
+// Start server
+const PORT = process.env.PORT || 5050;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});

@@ -22,7 +22,8 @@ function Header() {
   <Link to="/translate">Dịch Nhật-Việt</Link> |
         {user ? (
           <>
-            <span>👋 {user.name || user.username}</span>
+            <span>👋 {typeof user === "string" ? user : user.name || user.username}</span>
+
             <Link to="/profile">Profile</Link> |
             <button onClick={handleLogout}>Logout</button>
           </>

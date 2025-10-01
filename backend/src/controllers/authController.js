@@ -21,6 +21,8 @@ export const register = async (req, res) => {
 
 export const login = async (req, res) => {
   const { username, password } = req.body;
+  // 👉 Log dữ liệu nhận được từ frontend
+  console.log("Login request body:", req.body);
   try {
     const user = await User.findOne({ username });
     if (!user) return res.status(401).json({ message: "Invalid username" });
@@ -29,8 +31,9 @@ export const login = async (req, res) => {
     if (!match) return res.status(401).json({ message: "Invalid password" });
 
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "1d",
-    });
+  expiresIn: "1d",
+});
+
     res.json({ message: "Login successful", token, username: user.username });
   } catch (err) {
     res.status(500).json({ message: "Server error during login" });
