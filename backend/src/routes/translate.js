@@ -7,23 +7,40 @@ const router = express.Router();
 router.post('/translate', async (req, res) => {
   const { text, direction } = req.body;
   let source, target;
-  if (direction === 'ja-vi') {
-    source = 'ja'; target = 'vi';
-  } else {
-    source = 'vi'; target = 'ja';
+
+  // Sửa lại logic điều hướng ngôn ngữ
+  switch (direction) {
+    case 'ja-vi':
+      source = 'ja';
+      target = 'vi';
+      break;
+    case 'vi-ja':
+      source = 'vi';
+      target = 'ja';
+      break;
+    case 'en-vi':
+      source = 'en';
+      target = 'vi';
+      break;
+    case 'vi-en':
+      source = 'vi';
+      target = 'en';
+      break;
+    default:
+      return res.status(400).json({ message: 'Hướng dịch không hợp lệ' });
   }
+
   try {
-    // Sử dụng Google Translate API miễn phí (unofficial, public endpoint)
     const response = await axios.get('https://translate.googleapis.com/translate_a/single', {
       params: {
         client: 'gtx',
-  sl: source,
-  tl: target,
+        sl: source,
+        tl: target,
         dt: 't',
         q: text,
       },
     });
-    // Kết quả dịch nằm ở response.data[0][0][0]
+
     const translated = response.data[0][0][0];
     res.json({ result: translated });
   } catch (err) {

@@ -32,39 +32,42 @@ const Translate = () => {
     <div className="translate-page" style={{ maxWidth: 600, margin: "auto", padding: 24, background: "#fff", borderRadius: 8, boxShadow: "0 0 10px #eee" }}>
       <h2>Dịch</h2>
       <form onSubmit={handleTranslate} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <textarea
-          rows={5}
-          placeholder="Nhập văn bản cần dịch..."
-          value={text}
-          onChange={e => setText(e.target.value)}
-          required
+  <textarea
+    rows={5}
+    placeholder="Nhập văn bản cần dịch..."
+    value={text}
+    onChange={e => setText(e.target.value)}
+    required
+  />
+
+  {/* Các lựa chọn ngôn ngữ nằm cùng hàng */}
+  <div style={{ display: "flex", gap: 16, flexWrap: "wrap", justifyContent: "center" }}>
+    {[
+      { label: "Nhật → Việt", value: "ja-vi" },
+      { label: "Việt → Nhật", value: "vi-ja" },
+      { label: "Anh → Việt", value: "en-vi" },
+      { label: "Việt → Anh", value: "vi-en" },
+    ].map(({ label, value }) => (
+      <label key={value} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+        <input
+          type="radio"
+          name="direction"
+          value={value}
+          checked={direction === value}
+          onChange={() => setDirection(value)}
         />
-        <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-          <label>
-            <input
-              type="radio"
-              name="direction"
-              value="ja-vi"
-              checked={direction === "ja-vi"}
-              onChange={() => setDirection("ja-vi")}
-            />
-            Nhật → Việt
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="direction"
-              value="vi-ja"
-              checked={direction === "vi-ja"}
-              onChange={() => setDirection("vi-ja")}
-            />
-            Việt → Nhật
-          </label>
-          <button type="submit" disabled={loading} style={{ padding: "0.5rem 1.5rem" }}>
-            {loading ? "Đang dịch..." : "Dịch"}
-          </button>
-        </div>
-      </form>
+        {label}
+      </label>
+    ))}
+  </div>
+
+  {/* Nút dịch nằm riêng bên dưới */}
+  <button type="submit" disabled={loading} style={{ padding: "0.5rem 1.5rem", alignSelf: "center" }}>
+    {loading ? "Đang dịch..." : "Dịch"}
+  </button>
+</form>
+
+      
       <div style={{ marginTop: 24, minHeight: 40, background: "#f9f9f9", borderRadius: 4, padding: 12 }}>
         {result}
       </div>
