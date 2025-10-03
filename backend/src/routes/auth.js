@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, updateProfile, changePassword } from '../controllers/authController.js';
+import { register, login, updateProfile, changePassword, googleLogin } from '../controllers/authController.js';
 
 const router = express.Router();
 
@@ -7,6 +7,7 @@ const router = express.Router();
 // Đăng ký, đăng nhập
 router.post('/register', register);
 router.post('/login', login);
+router.post('/google-login', googleLogin);
 
 // Middleware xác thực JWT
 import jwt from 'jsonwebtoken';

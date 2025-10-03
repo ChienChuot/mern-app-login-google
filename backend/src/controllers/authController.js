@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { OAuth2Client } from 'google-auth-library';
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const register = async (req, res) => {
   const { username, password } = req.body;
@@ -37,6 +39,25 @@ export const login = async (req, res) => {
     res.json({ message: "Login successful", token, username: user.username });
   } catch (err) {
     res.status(500).json({ message: "Server error during login" });
+  }
+};
+
+export const googleLogin = async (req, res) => {
+  const { token } = req.body;
+  try {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const payload = ticket.getPayload();
+    const username = payload.name;
+
+    // Tùy bạn: lưu vào DB nếu chưa có, tạo JWT nếu cần
+    const jwtToken = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: '1h' });
+
+    res.json({ username, token: jwtToken, message: '✅ Google Login thành công!' });
+  } catch (err) {
+    res.status(401).json({ message: '❌ Token Google không hợp lệ' });
   }
 };
 
