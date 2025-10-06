@@ -94,3 +94,23 @@ export const changePassword = async (req, res) => {
     res.status(500).json({ message: "Error changing password" });
   }
 };
+
+// Quên mật khẩu
+export const forgotPassword = async (req, res) => {
+  const { username } = req.body;
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Tạo token đặt lại mật khẩu (có thể dùng JWT hoặc mã ngẫu nhiên)
+    const resetToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: '15m' });
+
+    // Gửi email chứa link đặt lại mật khẩu (bạn cần cấu hình dịch vụ email)
+    // Ví dụ: http://your-frontend-url/reset-password?token=resetToken
+    console.log(`Reset password link: http://your-frontend-url/reset-password?token=${resetToken}`);
+
+    res.json({ message: "Password reset link has been sent to your email." });
+  } catch (err) {
+    res.status(500).json({ message: "Error processing forgot password" });
+  }
+};

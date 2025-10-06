@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Footer from "./Footer";
-import { UserProvider } from "./UserContext";
+import { UserProvider } from "../UserContext";
 
 function Layout({ children }) {
   return (

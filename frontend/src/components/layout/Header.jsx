@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { UserContext } from "../components/UserContext";
+import { UserContext } from "../UserContext";
 
 function Header() {
   const { user, setUser } = useContext(UserContext);

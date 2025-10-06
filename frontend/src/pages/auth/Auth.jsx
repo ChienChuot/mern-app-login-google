@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { UserContext } from "../components/UserContext";
+import { UserContext } from "../../components/UserContext";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true); // true = login, false = register
@@ -57,6 +57,15 @@ function Auth() {
     }
   };
 
+
+  const handleForgotPassword = () => {
+  navigate("/forgot-password");
+};
+
+
+
+
+
   return (
     <div className="auth-page">
       <h2>{isLogin ? "Đăng nhập" : "Đăng ký"}</h2>
@@ -93,6 +102,12 @@ function Auth() {
         />
   {/* ...existing code... */}
       </div>
+
+      
+    <p style={{ marginTop: "1rem" }}>
+  <button onClick={handleForgotPassword}>🔐 Quên mật khẩu?</button>
+</p>
+
 
       {message && <p style={{ marginTop: "1rem", color: "green" }}>{message}</p>}
     </div>

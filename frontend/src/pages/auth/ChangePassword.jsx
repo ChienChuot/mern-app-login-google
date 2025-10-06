@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { UserContext } from "../components/UserContext";
+import axios from "axios";
+import { UserContext } from "../../components/UserContext";
 
 const ChangePassword = () => {
   const { token } = useContext(UserContext);
@@ -10,28 +11,25 @@ const ChangePassword = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch("/api/auth/change-password", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        setMessage("Đổi mật khẩu thành công!");
-        setForm({ oldPassword: "", newPassword: "" });
-      } else {
-        setMessage(data.message || "Có lỗi xảy ra");
-      }
-    } catch {
-      setMessage("Có lỗi xảy ra");
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.put('/api/auth/change-password', form, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (res.data.success) {
+      setMessage("Đổi mật khẩu thành công!");
+      setForm({ oldPassword: "", newPassword: "" });
+    } else {
+      setMessage(res.data.message || "Có lỗi xảy ra");
     }
-  };
+  } catch (err) {
+    setMessage("Có lỗi xảy ra");
+  }
+};
 
   return (
     <div className="change-password-page">

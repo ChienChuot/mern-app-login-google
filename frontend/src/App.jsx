@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
+import Layout from "./components/layout/Layout";
 
-import Home from "./pages/Home";
-import Auth from "./pages/Auth";
-import About from "./pages/About";
-import NotFound from "./pages/NotFound";
-import Introduce from "./pages/Introduce";
-import Profile from "./pages/Profile";
-import ChangePassword from "./pages/ChangePassword";
-import Translate from "./pages/Translate";
+import Home from "./pages/home/Home";
+import Auth from "./pages/auth/Auth";
+import About from "./pages/home/About";
+import NotFound from "./pages/home/NotFound";
+import Introduce from "./pages/home/Introduce";
+import Profile from "./pages/auth/Profile";
+import ChangePassword from "./pages/auth/ChangePassword";
+import Translate from "./pages/home/Translate";
+import ForgotPassword from "./pages/auth/ForgotPassword";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/translate" element={<Translate />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
         </Routes>
       </Layout>
     </>
