@@ -1,7 +1,5 @@
-// pages/ForgotPassword.jsx
 import { useState } from "react";
-import axios from "axios";
-
+import { authForgotPassword } from "../../api/authApi";
 
 const ForgotPassword = () => {
   const [username, setUsername] = useState("");
@@ -10,8 +8,8 @@ const ForgotPassword = () => {
   const handleSendReset = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/forgot-password", { username });
-      setMessage(res.data.message || "✅ Đã gửi yêu cầu đặt lại mật khẩu!");
+      const data = await authForgotPassword(username);
+      setMessage(data.message || "✅ Đã gửi yêu cầu đặt lại mật khẩu!");
     } catch (err) {
       setMessage(err.response?.data?.message || "❌ Không gửi được yêu cầu");
     }
@@ -33,6 +31,6 @@ const ForgotPassword = () => {
       {message && <p style={{ marginTop: "1rem", color: "green" }}>{message}</p>}
     </div>
   );
-}
+};
 
 export default ForgotPassword;

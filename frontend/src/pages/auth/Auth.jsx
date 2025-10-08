@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { UserContext } from "../../components/UserContext";
+import { authLogin, authRegister } from "../../api/authApi";
 
 function Auth() {
-  const [isLogin, setIsLogin] = useState(true); // true = login, false = register
+  const [isLogin, setIsLogin] = useState(true);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -15,16 +15,17 @@ function Auth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const endpoint = isLogin ? "/api/login" : "/api/register";
-
     try {
-      const res = await axios.post(endpoint, { username, password });
-      setMessage(res.data.message);
+      const data = isLogin
+        ? await authLogin(username, password)
+        : await authRegister(username, password);
 
-      if (isLogin && res.data.username) {
-        localStorage.setItem("token", res.data.token || "");
-        localStorage.setItem("username", res.data.username);
-        setUser(res.data.username);
+      setMessage(data.message);
+
+      if (isLogin && data.username) {
+        localStorage.setItem("token", data.token || "");
+        localStorage.setItem("username", data.username);
+        setUser(data.username);
         setTimeout(() => navigate("/"), 1000);
       } else {
         setTimeout(() => {
@@ -36,8 +37,6 @@ function Auth() {
       setMessage(err.response?.data?.message || "❌ Có lỗi xảy ra");
     }
   };
-
-  // ...existing code...
 
   const handleGoogleLogin = (credentialResponse) => {
     try {
@@ -57,14 +56,9 @@ function Auth() {
     }
   };
 
-
   const handleForgotPassword = () => {
-  navigate("/forgot-password");
-};
-
-
-
-
+    navigate("/forgot-password");
+  };
 
   return (
     <div className="auth-page">
@@ -100,14 +94,11 @@ function Auth() {
           onSuccess={handleGoogleLogin}
           onError={() => setMessage("❌ Google Login thất bại")}
         />
-  {/* ...existing code... */}
       </div>
 
-      
-    <p style={{ marginTop: "1rem" }}>
-  <button onClick={handleForgotPassword}>🔐 Quên mật khẩu?</button>
-</p>
-
+      <p style={{ marginTop: "1rem" }}>
+        <button onClick={handleForgotPassword}>🔐 Quên mật khẩu?</button>
+      </p>
 
       {message && <p style={{ marginTop: "1rem", color: "green" }}>{message}</p>}
     </div>

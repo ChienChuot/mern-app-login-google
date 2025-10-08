@@ -19,7 +19,7 @@ router.put('/change-password', authMiddleware, changePassword);
 
 
 // Quên mật khẩu
-router.post('/forgot-password', authMiddleware, forgotPassword);
+router.post('/forgot-password', forgotPassword);
 
 
 // ✅ Route test đơn giản

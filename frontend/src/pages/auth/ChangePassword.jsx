@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
 import { UserContext } from "../../components/UserContext";
+import { authChangePassword } from "../../api/authApi";
+
 
 const ChangePassword = () => {
   const { token } = useContext(UserContext);
@@ -11,25 +12,20 @@ const ChangePassword = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await axios.put('/api/auth/change-password', form, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    if (res.data.success) {
-      setMessage("Đổi mật khẩu thành công!");
-      setForm({ oldPassword: "", newPassword: "" });
-    } else {
-      setMessage(res.data.message || "Có lỗi xảy ra");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const data = await authChangePassword(form, token);
+      if (data.success) {
+        setMessage("Đổi mật khẩu thành công!");
+        setForm({ oldPassword: "", newPassword: "" });
+      } else {
+        setMessage(data.message || "Có lỗi xảy ra");
+      }
+    } catch (err) {
+      setMessage("Có lỗi xảy ra");
     }
-  } catch (err) {
-    setMessage("Có lỗi xảy ra");
-  }
-};
+  };
 
   return (
     <div className="change-password-page">
