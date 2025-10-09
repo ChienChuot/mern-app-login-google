@@ -1,6 +1,5 @@
 import express from 'express';
 import authMiddleware from '../middlewares/authMiddleware.js';
-
 import { register, login, updateProfile, changePassword, googleLogin,
   forgotPassword } from '../controllers/authController.js';
 

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js";
 import translateRoutes from "./routes/translate.js";
+import chatRoutes from './routes/chat.js';
 
 // Load environment variables
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(express.json());
 // Routes
 app.use("/api", authRoutes);
 app.use("/api", translateRoutes);
+app.use('/api/chat', chatRoutes); 
+
 
 app.get("/", (req, res) => {
   res.send("✅ Backend is running");

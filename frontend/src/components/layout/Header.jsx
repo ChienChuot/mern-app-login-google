@@ -20,7 +20,7 @@ function Header() {
   <Link to="/introduce">Introduce</Link> |
   <Link to="/about">About</Link> |
   <Link to="/translate">Dịch</Link> |
-        {user ? (
+         {user ? (
           <>
             <span>👋 {typeof user === "string" ? user : user.name || user.username}</span>
 

@@ -9,6 +9,8 @@ import Profile from "./pages/auth/Profile";
 import ChangePassword from "./pages/auth/ChangePassword";
 import Translate from "./pages/home/Translate";
 import ForgotPassword from "./pages/auth/ForgotPassword";
+import ChatBox from './components/ChatBox';
+
 
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
           <Route path="/translate" element={<Translate />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/chat" element={<ChatBox />} />
         </Routes>
       </Layout>
     </>
